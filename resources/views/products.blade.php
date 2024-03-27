@@ -14,13 +14,13 @@
 </div>
 
      <div class="headerr">
-    <a href="All.blade.php"> <p class="all"> All
+    <a href="products.blade.php"> <p class="all"> All
 </p>
     </a>
-    <a href="Men.blade.php"> <p class="men"> Men
+    <a href="products.blade.php"> <p class="men"> Men
 </p>
     </a>
-    <a href="woman.blade.php"> <p class="woman"> Woman
+    <a href="products.blade.php"> <p class="woman"> Woman
 </p>
     </a>
   
