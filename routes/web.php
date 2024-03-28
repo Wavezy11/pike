@@ -14,28 +14,15 @@ Route::post('/add-to-cart/{id}', [ProductController::class, 'addToCart'])->name(
 // Other routes...
 
 Route::get('/', [ProductController::class, 'index']);
-Route::get('/login', function () {
-    return view('login');
-})->name('login'); // Named the login route
 
-Route::post('/login', [LoginController::class, 'login']);
-Route::get('/dashboard', function () {
-    return view('products');
-});
-Route::get('/upload', function () {
-    return view('upload');
-});
-Route::post('/upload', [UploadController::class, 'upload']);
 
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('showproduct');
 Route::get('/show-all-products', [ProductController::class, 'showAllProducts'])->name('showAllProducts'); // Renamed route for clarity
 
-Route::get('/filterByPrice', [ProductController::class, 'filterByPrice'])->name('filterByPrice');
+
+Route::get('/filterByPrice', 'ProductController@filterProducts')->name('filterByPrice');
 Route::get('/search', [ProductController::class, 'search'])->name('search');
 Route::get('/filter-products', [ProductController::class, 'filterProducts'])->name('filterProducts');
-
-Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-Route::post('/register', [RegisterController::class, 'register']);
 
 Route::get('/ShoppingCart', [ProductController::class, 'shoppingCart'])->name('ShoppingCart');
 Route::get('/shopping-cart', [ShoppingCartController::class, 'index'])->name('shopping.cart');
@@ -45,18 +32,7 @@ Route::delete('/remove-from-cart/{itemId}', [ShoppingCartController::class, 'rem
 Route::put('/update-cart/{itemId}', [ShoppingCartController::class, 'updateCart'])->name('update.cart');
 
 
-// Login routes
 // Routes voor de loginpagina en de registratiepagina
-Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('/login', 'Auth\LoginController@login');
-Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
-
-Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-Route::post('/register', 'Auth\RegisterController@register');
-
-
-
-Route::get('/dashboard', 'DashboardController@index')->middleware('auth');
 
 Auth::routes();
 

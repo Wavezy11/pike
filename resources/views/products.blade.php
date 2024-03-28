@@ -23,6 +23,13 @@
 </div>
 
 
+            <form action="{{ route('search') }}" method="get">
+    @csrf
+    <form action="{{ route('search') }}" method="get" id="search-form">
+    @csrf
+    <input type="search" placeholder="Search..." name="search" id="search-input">
+    <button type="submit">Search</button>
+</form>
 
 
 
@@ -49,11 +56,6 @@
                 <label for="men">infant</label>
                 <input type="checkbox" name="Infant" id="infant">
                
-</form>
-<form action="{{ route('search') }}" method="get" id="search-form">
-    @csrf
-    <input type="search" placeholder="Search..." name="search" id="search-input">
-    <button type="submit">Search</button>
 </form>
 
 <form action="{{ route('filterByPrice') }}" method="get" id="filter-form">

@@ -29,50 +29,48 @@ class ShoppingCartController extends Controller
 
 
     // In app/Http/Controllers/ShoppingCartController.php
-
-public function addToCart(Request $request, $productId)
-{
-    // Zoek het product op basis van het meegegeven product ID
-    $product = Product::findOrFail($productId);
-
-    // Zoek of het product al in het winkelwagentje staat
-    $existingCartItem = ShoppingCartItem::where('product_id', $productId)->first();
-
-    if ($existingCartItem) {
-        // Als het product al in het winkelwagentje staat, verhoog de hoeveelheid met 1
-        $existingCartItem->quantity += 1;
-        $existingCartItem->save();
-    } else {
-        // Als het product nog niet in het winkelwagentje staat, maak een nieuw item aan
-        $cartItem = new ShoppingCartItem();
-        $cartItem->product_id = $productId;
-        $cartItem->quantity = 1; // Stel de hoeveelheid in op 1
-        $cartItem->save();
-    }
-
-    // Redirect de gebruiker naar de winkelwagenpagina na het toevoegen van het product
-    return redirect()->route('shopping.cart');
-}
-
-
-    public function removeFromCart(Request $request, $itemId)
+    public function addToCart(Request $request, $id)
     {
-        $shoppingCartItem = ShoppingCartItem::findOrFail($itemId);
-        $shoppingCartItem->delete();
+        // Zoek het product op basis van het meegegeven product ID
+        $product = Product::findOrFail($id);
     
-        // Redirect to the shopping cart page
+        // Zoek of het product al in het winkelwagentje staat
+        $existingCartItem = ShoppingCartItem::where('product_id', $id)->first();
+    
+        if ($existingCartItem) {
+            // Als het product al in het winkelwagentje staat, verhoog de hoeveelheid met 1
+            $existingCartItem->quantity += 1;
+            $existingCartItem->save();
+        } else {
+            // Als het product nog niet in het winkelwagentje staat, maak een nieuw item aan
+            $cartItem = new ShoppingCartItem();
+            $cartItem->product_id = $id;
+            $cartItem->quantity = 1; // Stel de hoeveelheid in op 1
+            $cartItem->save();
+        }
+    
+        // Redirect de gebruiker naar de winkelwagenpagina na het toevoegen van het product
         return redirect()->route('shopping.cart');
     }
-    public function updateCart(Request $request, $itemId)
+    
+    public function removeFromCart(Request $request, $itemId)
 {
-    $request->validate([
-        'quantity' => 'required|numeric|min:1|max:99',
-    ]);
-
     $shoppingCartItem = ShoppingCartItem::findOrFail($itemId);
-    $shoppingCartItem->quantity = $request->quantity;
-    $shoppingCartItem->save();
+    $shoppingCartItem->delete();
 
+    // Redirect naar de winkelwagenpagina na het verwijderen van het item
     return redirect()->route('shopping.cart');
 }
-}
+    public function updateCart(Request $request, $itemId)
+    {
+        $request->validate([
+            'quantity' => 'required|numeric|min:1|max:99',
+        ]);
+    
+        $shoppingCartItem = ShoppingCartItem::findOrFail($itemId);
+        $shoppingCartItem->quantity = $request->quantity;
+        $shoppingCartItem->save();
+    
+        return redirect()->route('shopping.cart');
+    }
+}    

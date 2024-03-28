@@ -40,7 +40,6 @@ class ProductController extends Controller
         // Geef de gevonden producten weer in de weergave
         return view('products', compact('products'));
     }
-
     public function filterProducts(Request $request)
     {
         // Haal de geselecteerde sorteeroptie op uit het formulier
@@ -91,14 +90,25 @@ class ProductController extends Controller
         // Zoek het product op basis van het meegegeven product ID
         $product = Product::findOrFail($productId);
     
-        // Voeg het product toe aan de winkelwagen
-        $shoppingCartItem = new ShoppingCartItem();
-        $shoppingCartItem->product_id = $productId;
-        $shoppingCartItem->save();
+        // Controleer of het product al in het winkelwagentje staat
+        $existingCartItem = ShoppingCartItem::where('product_id', $productId)->first();
+    
+        if ($existingCartItem) {
+            // Als het product al in het winkelwagentje staat, verhoog de hoeveelheid met 1
+            $existingCartItem->quantity += 1;
+            $existingCartItem->save();
+        } else {
+            // Als het product nog niet in het winkelwagentje staat, maak een nieuw item aan
+            $cartItem = new ShoppingCartItem();
+            $cartItem->product_id = $productId;
+            $cartItem->quantity = 1; // Stel de hoeveelheid in op 1
+            $cartItem->save();
+        }
     
         // Redirect de gebruiker naar de winkelwagenpagina na het toevoegen van het product
         return redirect()->route('shopping.cart');
     }
+    
     
     
 

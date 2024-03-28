@@ -4,7 +4,6 @@
     box-sizing: border-box;
 }
 
-/* Global styles */
 body {
     font-family: Arial, sans-serif;
     background-color: #faf9f6;
@@ -45,16 +44,17 @@ body {
     margin-right: 20px;
 }
 
-.container {
-    max-width: 800px;
-    margin: 0 auto;
+.cart-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 .cart-item {
     display: flex;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 20px;
+    width: calc(50% - 10px); /* 50% width with 10px gap */
+    border: 1px solid #ccc;
+    padding: 10px;
 }
 
 .cart-item img {
@@ -63,8 +63,17 @@ body {
     margin-right: 20px;
 }
 
+.item-info {
+    flex: 1;
+}
+
 .item-info h3 {
     margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.price {
+    font-weight: bold;
 }
 
 .update-form {
@@ -86,4 +95,37 @@ body {
 
 .update-btn:hover, .remove-btn:hover {
     background-color: #555;
+}
+
+.total-section {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.promo-code {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.promo-code input {
+    width: 150px;
+    margin-right: 10px;
+}
+
+#buyBtn {
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Groene achtergrondkleur */
+    color: white; /* Witte tekstkleur */
+    border: none; /* Geen rand */
+    cursor: pointer; /* Cursor verandert in een handje bij hover */
+    border-radius: 5px; /* Afgeronde hoeken */
+    font-size: 16px; /* Tekstgrootte */
+}
+
+#buyBtn:hover {
+    background-color: #45a049; /* Donkerdere groene kleur bij hover */
 }
